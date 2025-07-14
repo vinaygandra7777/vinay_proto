@@ -1,398 +1,97 @@
 
-
-// import React, { useState, useEffect, useRef } from 'react';
-
-// const TerminalPortfolio = () => {
-//   const [input, setInput] = useState('');
-//   const [output, setOutput] = useState([
-//     { text: "welcome", isCommand: true },
-//     { text: "Hi, I'm Mark Gatere, a Software & AI Engineer." },
-//     { text: "Welcome to my interactive 'AI powered' portfolio terminal!" },
-//     { text: "Type 'help' to see available commands." },
-//   ]);
-//   const [currentTime, setCurrentTime] = useState('');
-//   const [isTyping, setIsTyping] = useState(false);
-//   const terminalEndRef = useRef(null);
-
-//   const navCommands = ['help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo', 'clear'];
-
-//   // Effect to update time
-//   useEffect(() => {
-//     const timer = setInterval(() => {
-//       const now = new Date();
-//       const timeString = now.toLocaleString('en-US', {
-//         month: 'numeric',
-//         day: 'numeric',
-//         year: 'numeric',
-//         hour: 'numeric',
-//         minute: '2-digit',
-//         second: '2-digit',
-//         hour12: true
-//       }).replace(',', '');
-//       setCurrentTime(timeString);
-//     }, 1000);
-//     return () => clearInterval(timer);
-//   }, []);
-  
-//   // Effect to scroll to bottom of terminal
-//   useEffect(() => {
-//     terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-//   }, [output]);
-
-//   const typeText = async (lines, command) => {
-//     setIsTyping(true);
-//     const newOutput = [...output, { text: command, isCommand: true }];
-//     setOutput(newOutput);
-    
-//     for (let i = 0; i < lines.length; i++) {
-//       await new Promise(resolve => setTimeout(resolve, 250)); // Delay between lines
-//       setOutput(prev => [...prev, { text: lines[i], isTyping: true }]);
-//     }
-//     setIsTyping(false);
-//   };
-
-//   const processCommand = async (command) => {
-//     if (isTyping) return; // Prevent new commands while typing
-    
-//     if (command.toLowerCase() === 'clear') {
-//         setOutput([]);
-//         return;
-//     }
-
-//     let lines;
-//     switch (command.toLowerCase()) {
-//       case 'help':
-//         lines = [`Available commands: ${navCommands.join(', ')}`];
-//         break;
-//       case 'about':
-//         lines = [
-//           "I'm Vinay, a passionate Software & AI Engineer with expertise in:",
-//           "• Full-stack development with modern frameworks",
-//           "• AI/ML integration and implementation",
-//           "• Building scalable and innovative solutions",
-//           "",
-//           "I love turning complex problems into elegant solutions through code."
-//         ];
-//         break;
-//       case 'projects':
-//         lines = [
-//           "🚀 Featured Projects:",
-//           "",
-//           "1. AI-Powered Portfolio Terminal (Current)",
-//           "   - Interactive terminal interface with React",
-//           "   - Real-time command processing",
-//           "   - Responsive design with modern UI",
-//           "",
-//           "2. Machine Learning Pipeline",
-//           "   - End-to-end ML workflow automation",
-//           "   - Data preprocessing and model deployment",
-//           "   - RESTful API integration",
-//           "",
-//           "3. Cloud-Native Web Application",
-//           "   - Microservices architecture",
-//           "   - Docker containerization",
-//           "   - AWS/Azure deployment",
-//           "",
-//           "4. Real-time Data Analytics Dashboard",
-//           "   - Live data visualization",
-//           "   - WebSocket integration",
-//           "   - Interactive charts and metrics"
-//         ];
-//         break;
-//       case 'skills':
-//         lines = [
-//           "💻 Technical Skills:",
-//           "",
-//           "Programming Languages:",
-//           "• JavaScript/TypeScript, Python",
-//           "• HTML5, CSS3, SQL, NoSQL",
-//           "",
-//           "Frameworks & Libraries:",
-//           "• React, Node.js, Express,",
-//           "• PyTorch, Scikit-learn",
-//           "• Bootstrap, Tailwind CSS,",
-//           "",
-//           "Tools & Technologies:",
-//           "• Git, Docker",
-//           "• AWS",
-//           "• MongoDB, PostgreSQL, Redis",
-//           "• Linux, Windows, macOS"
-//         ];
-//         break;
-//       case 'experience':
-//         lines = [
-//           "💼 Professional Experience:",
-//           "",
-//           "Senior Software Engineer | TechCorp Inc. (2022-Present)",
-//           "• Led development of AI-powered applications",
-//           "• Improved system performance by 40%",
-//           "• Mentored junior developers",
-//           "",
-//           "Full Stack Developer | StartupXYZ (2020-2022)",
-//           "• Built scalable web applications from scratch",
-//           "• Implemented CI/CD pipelines",
-//           "• Collaborated with cross-functional teams",
-//           "",
-//           "Software Developer Intern | BigTech Co. (2019-2020)",
-//           "• Contributed to open-source projects",
-//           "• Developed REST APIs and microservices",
-//           "• Gained experience with cloud platforms"
-//         ];
-//         break;
-//       case 'contact':
-//         lines = [
-//           "📧 Get in Touch:",
-//           "",
-//           "Email: vinaygandra7777@gmail.com",
-//           "LinkedIn: linkedin.com/in/markgatere",
-//           "GitHub: github.com/markgatere",
-//           "Twitter: @markgatere",
-//           "Portfolio: markgatere.dev",
-//           "",
-//           "📍 Location: Nairobi, Kenya",
-//           "🌐 Open to remote opportunities worldwide"
-//         ];
-//         break;
-//       case 'education':
-//         lines = [
-//           "🎓 Education:",
-//           "",
-//           "Bachelor of Science in Computer Science",
-//           "University of Nairobi (2016-2020)",
-//           "• Graduated Magna Cum Laude",
-//           "• Relevant Coursework: AI, Machine Learning, Data Structures",
-//           "",
-//           "Certifications:",
-//           "• AWS Certified Solutions Architect",
-//           "• Google Cloud Professional Developer",
-//           "• Microsoft Azure Fundamentals",
-//           "• Certified Kubernetes Administrator (CKA)"
-//         ];
-//         break;
-//       case 'certifications':
-//         lines = [
-//           "🏆 Certifications & Awards:",
-//           "",
-//           "Professional Certifications:",
-//           "• AWS Certified Solutions Architect - Associate",
-//           "• Google Cloud Professional Cloud Developer",
-//           "• Microsoft Azure Developer Associate",
-//           "• Certified Kubernetes Administrator (CKA)",
-//           "• TensorFlow Developer Certificate",
-//           "",
-//           "Awards & Recognition:",
-//           "• Best Innovation Award - TechCorp 2023",
-//           "• Open Source Contributor of the Year 2022",
-//           "• Hackathon Winner - AI Challenge 2021"
-//         ];
-//         break;
-//       case 'leadership':
-//         lines = [
-//           "👥 Leadership & Community:",
-//           "",
-//           "Leadership Roles:",
-//           "• Tech Lead - AI Development Team (2023-Present)",
-//           "• Mentor - Google Developer Student Clubs",
-//           "• Organizer - Nairobi Tech Meetup",
-//           "",
-//           "Community Involvement:",
-//           "• Open source contributor (500+ commits)",
-//           "• Technical speaker at conferences",
-//           "• Code reviewer for junior developers",
-//           "• Volunteer coding instructor for underserved communities",
-//           "",
-//           "Speaking Engagements:",
-//           "• 'AI in Web Development' - DevFest 2023",
-//           "• 'Building Scalable Applications' - Tech Summit 2022"
-//         ];
-//         break;
-//       case 'sudo':
-//         lines = [
-//           "🔐 Access Granted - Advanced Commands:",
-//           "",
-//           "sudo make_coffee ☕",
-//           "sudo deploy_to_production 🚀",
-//           "sudo debug_life --fix-all-bugs 🐛",
-//           "sudo rm -rf /stress /anxiety /imposter_syndrome",
-//           "sudo chmod +x dreams.sh && ./dreams.sh",
-//           "",
-//           "Remember: With great power comes great responsibility! 🕷️"
-//         ];
-//         break;
-//       default:
-//         lines = [`command not found: ${command}`];
-//         break;
-//     }
-    
-//     await typeText(lines, command);
-//   };
-
-//   const handleKeyDown = (e) => {
-//     if (e.key === 'Enter' && input.trim() && !isTyping) {
-//       processCommand(input.trim());
-//       setInput('');
-//     }
-//   };
-
-//   // Create a placeholder image with initials
-//   const ProfileImage = () => (
-//     <div className="w-48 h-64 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border border-gray-700 flex flex-col items-center justify-center shadow-lg">
-//       <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-//         <span className="text-white text-2xl font-bold">MG</span>
-//       </div>
-//       <div className="text-white text-sm font-mono text-center px-4">
-//         <div className="mb-2">Mark Gatere</div>
-//         <div className="text-gray-400">Software & AI Engineer</div>
-//         <div className="text-green-400 text-xs mt-2">ID: DEV-2024-001</div>
-//       </div>
-//     </div>
-//   );
-
-//   return (
-//     <div className="bg-black text-white font-mono h-screen flex flex-col relative overflow-hidden">
-//       {/* Header */}
-//       <div className='p-4 border-b border-green-800'>
-//         <h1 className="text-3xl text-green-400 font-bold">VINAY </h1>
-//         <p className="text-sm text-gray-400">Software Engineer</p>
-//       </div>
-
-//       <div className="flex flex-1 overflow-hidden">
-//         {/* Left Panel */}
-//         <aside className="w-1/3 flex justify-center items-start pt-16 px-6">
-//           <div className="text-center">
-//             <ProfileImage />
-//             <p className="text-green-500 text-sm mt-4 animate-pulse">[Interactive 3D Card]</p>
-//           </div>
-//         </aside>
-
-//         {/* Vertical Separator */}
-//         <div className="w-px bg-green-800"></div>
-
-//         {/* Right Panel */}
-//         <main className="w-2/3 flex flex-col pl-6 pr-4">
-//           {/* Top Navigation */}
-//           <nav className="flex flex-wrap items-center gap-x-2 text-sm py-4 border-b border-green-800 mb-4">
-//             {navCommands.map((cmd, index) => (
-//               <React.Fragment key={cmd}>
-//                 <button 
-//                   onClick={() => processCommand(cmd)}
-//                   className="text-green-400 hover:text-white transition-colors duration-200 px-1 py-1 rounded hover:bg-gray-800"
-//                   disabled={isTyping}
-//                 >
-//                   {cmd}
-//                 </button>
-//                 {index < navCommands.length - 1 && <span className="text-gray-600">|</span>}
-//               </React.Fragment>
-//             ))}
-//           </nav>
-          
-//           {/* Terminal Output */}
-//           <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
-//             {output.map((line, index) => (
-//               <div key={index} className="mb-1">
-//                 {line.isCommand ? (
-//                   <div className="flex">
-//                     <span className="text-blue-400">vinay@portfolio:~$</span>
-//                     <span className="ml-2 text-white">{line.text}</span>
-//                   </div>
-//                 ) : (
-//                   <div className="text-gray-300 whitespace-pre-line ml-4 leading-relaxed">
-//                     {line.text}
-//                   </div>
-//                 )}
-//               </div>
-//             ))}
-
-//             <div ref={terminalEndRef} />
-//             <div className="flex items-center py-4">
-//               <span className="text-blue-400">vinay@portfolio:~$</span>
-//               <input
-//                 type="text"
-//                 value={input}
-//                 onChange={(e) => setInput(e.target.value)}
-//                 onKeyDown={handleKeyDown}
-//                 className="bg-transparent text-white outline-none flex-1 ml-2 caret-green-400"
-//                 autoFocus
-//                 placeholder={isTyping ? "Processing..." : "Type a command..."}
-//                 disabled={isTyping}
-//               />
-//             </div>
-//           </div>
-//         </main>
-//       </div>
-
-//       {/* Footer Elements */}
-//       <footer className="absolute bottom-4 left-4 text-blue-400 text-sm">
-        
-//       </footer>
-//       <footer className="absolute bottom-4 right-4 text-green-500 text-xs font-mono">
-//         {currentTime}
-//       </footer>
-//     </div>
-//   );
-// };
-
-// export default TerminalPortfolio;
-
-
-
-import React, { useState, useEffect, useRef } from 'react';
+// TerminalPortfolio.jsx
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 const TerminalPortfolio = () => {
+  /* ------------------------------------------------------------------ */
+  /* 1. STATE                                                           */
+  /* ------------------------------------------------------------------ */
   const [input, setInput] = useState('');
   const [output, setOutput] = useState([
-    { text: "welcome", isCommand: true },
-    { text: "Hi, I'm Vinay Gandra, a Software & AI Engineer." },
-    { text: "Welcome to my interactive 'AI powered' portfolio terminal!" },
-    { text: "Type 'help' to see available commands." },
+    { text: 'welcome', isCommand: true },
+    { text: 'Hi, I\'m Vinay Gandra, a Software & AI Engineer.' },
+    { text: 'Welcome to my interactive AI-powered portfolio terminal!' },
+    { text: 'Type \'help\' to see available commands.' },
   ]);
   const [currentTime, setCurrentTime] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [activePopup, setActivePopup] = useState(null);
-  const terminalEndRef = useRef(null);
+  const [cmdQueue, setCmdQueue] = useState([]);
+  const [skipTyping, setSkipTyping] = useState(false);
 
+  const terminalEndRef = useRef(null);
   const navCommands = ['help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo', 'clear'];
 
-  // Effect to update time
+
+
+  /* ------------------------------------------------------------------ */
+  /* 2. TIME                                                            */
+  /* ------------------------------------------------------------------ */
   useEffect(() => {
     const timer = setInterval(() => {
-      const now = new Date();
-      const timeString = now.toLocaleString('en-US', {
-        month: 'numeric',
-        day: 'numeric',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      }).replace(',', '');
-      setCurrentTime(timeString);
+      setCurrentTime(
+        new Date().toLocaleString('en-US', {
+          month: 'numeric',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true,
+        }).replace(',', '')
+      );
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-  
-  // Effect to scroll to bottom of terminal
+
+  /* ------------------------------------------------------------------ */
+  /* 3. SCROLL                                                          */
+  /* ------------------------------------------------------------------ */
   useEffect(() => {
     terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [output]);
 
+  /* ------------------------------------------------------------------ */
+  /* 4. COMMAND QUEUE DRAIN                                             */
+  /* ------------------------------------------------------------------ */
+  useEffect(() => {
+    if (!isTyping && cmdQueue.length) {
+      const [next, ...rest] = cmdQueue;
+      setCmdQueue(rest);
+      processCommand(next);
+    }
+  }, [isTyping, cmdQueue]);
+
+  /* ------------------------------------------------------------------ */
+  /* 5. TYPING & SKIP LOGIC                                             */
+  /* ------------------------------------------------------------------ */
   const typeText = async (lines, command) => {
+    setOutput((prev) => [...prev, { text: command, isCommand: true }]);
+
+    if (skipTyping) {
+      setOutput((prev) => [
+        ...prev,
+        ...lines.map((l) => ({ text: l })),
+      ]);
+      return;
+    }
+
     setIsTyping(true);
-    const newOutput = [...output, { text: command, isCommand: true }];
-    setOutput(newOutput);
-    
-    for (let i = 0; i < lines.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 250)); // Delay between lines
-      setOutput(prev => [...prev, { text: lines[i], isTyping: true }]);
+    for (const line of lines) {
+      await new Promise((r) => setTimeout(r, 250));
+      setOutput((prev) => [...prev, { text: line }]);
     }
     setIsTyping(false);
   };
 
-  const getPopupContent = (command) => {
+  /* ------------------------------------------------------------------ */
+  /* 6. POPUP CONTENT                                                   */
+  /* ------------------------------------------------------------------ */
+  const getPopupContent = useCallback((command) => {
     switch (command.toLowerCase()) {
       case 'about':
         return {
-          title: "About Me",
+          title: 'About Me',
           content: (
             <div className="space-y-6">
               <div className="text-center">
@@ -408,415 +107,489 @@ const TerminalPortfolio = () => {
                 <p>Currently focused on building next-generation AI-powered applications and systems.</p>
               </div>
             </div>
-          )
+          ),
         };
-      case 'projects':
-        return {
-          title: "Featured Projects",
-          content: (
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-4">
-                <div className="bg-gray-900/80 p-5 rounded-lg border border-green-500/50 hover:border-green-400 transition-colors">
-                  <h4 className="text-green-400 font-semibold text-lg mb-2">AI-Powered Portfolio Terminal</h4>
-                  <p className="text-gray-300 mb-3">Interactive terminal interface with React and real-time command processing</p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">React</span>
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">JavaScript</span>
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">CSS</span>
-                  </div>
-                </div>
-                <div className="bg-gray-900/80 p-5 rounded-lg border border-green-500/50 hover:border-green-400 transition-colors">
-                  <h4 className="text-green-400 font-semibold text-lg mb-2">Machine Learning Pipeline</h4>
-                  <p className="text-gray-300 mb-3">End-to-end ML workflow automation with data preprocessing and model deployment</p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">Python</span>
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">TensorFlow</span>
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">Docker</span>
-                  </div>
-                </div>
-                <div className="bg-gray-900/80 p-5 rounded-lg border border-green-500/50 hover:border-green-400 transition-colors">
-                  <h4 className="text-green-400 font-semibold text-lg mb-2">Cloud-Native Web Application</h4>
-                  <p className="text-gray-300 mb-3">Microservices architecture with Docker containerization and AWS deployment</p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">Node.js</span>
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">AWS</span>
-                    <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">Docker</span>
-                  </div>
-                </div>
+        case "projects":
+      return {
+        title: "Featured Projects",
+        content: (
+          <div className="space-y-4">
+            {/* Card 1 */}
+            <div className="bg-gray-900/80 p-5 rounded-lg border border-green-500/50 hover:border-green-400 transition">
+              <h4 className="text-green-400 font-semibold text-lg mb-2">
+                EcoTrack 🌱
+              </h4>
+              <p className="text-gray-300 mb-3">
+                AI-driven carbon-footprint tracker with real-time analytics dashboards.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  Next.js
+                </span>
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  FastAPI
+                </span>
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  PostgreSQL
+                </span>
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  Docker
+                </span>
               </div>
             </div>
-          )
-        };
-      case 'skills':
-        return {
-          title: "Technical Skills",
-          content: (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
-                  <h4 className="text-green-400 font-semibold mb-3 text-lg">Programming Languages</h4>
-                  <div className="space-y-2">
-                    {['JavaScript', 'TypeScript', 'Python', 'Java', 'C++'].map(skill => (
-                      <div key={skill} className="flex items-center space-x-3">
-                        <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                        <span className="text-gray-300">{skill}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
-                  <h4 className="text-green-400 font-semibold mb-3 text-lg">Frameworks & Tools</h4>
-                  <div className="space-y-2">
-                    {['React', 'Node.js', 'Express', 'PyTorch', 'TensorFlow'].map(skill => (
-                      <div key={skill} className="flex items-center space-x-3">
-                        <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                        <span className="text-gray-300">{skill}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
-                <h4 className="text-green-400 font-semibold mb-3 text-lg">Cloud & DevOps</h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {['AWS', 'Azure', 'Docker', 'Kubernetes', 'CI/CD', 'Git'].map(skill => (
-                    <div key={skill} className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                      <span className="text-gray-300">{skill}</span>
-                    </div>
-                  ))}
-                </div>
+
+            {/* Card 2 */}
+            <div className="bg-gray-900/80 p-5 rounded-lg border border-green-500/50 hover:border-green-400 transition">
+              <h4 className="text-green-400 font-semibold text-lg mb-2">
+                Swahili-LLM 🤖
+              </h4>
+              <p className="text-gray-300 mb-3">
+                Open-source large-language model fine-tuned for Swahili NLP tasks.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  PyTorch
+                </span>
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  Hugging Face
+                </span>
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  AWS SageMaker
+                </span>
               </div>
             </div>
-          )
-        };
-      case 'experience':
-        return {
-          title: "Professional Experience",
-          content: (
-            <div className="space-y-6">
-              <div className="border-l-4 border-green-500 pl-6 relative">
-                <div className="absolute -left-3 w-5 h-5 bg-green-500 rounded-full border-2 border-black"></div>
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
-                  <h4 className="text-green-400 font-semibold text-lg">Senior Software Engineer</h4>
-                  <p className="text-green-300 font-medium">TechCorp Inc. • 2022 - Present</p>
-                  <p className="text-gray-300 mt-2 leading-relaxed">Led development of AI-powered applications, improved system performance by 40%, and mentored junior developers in modern development practices.</p>
-                </div>
-              </div>
-              <div className="border-l-4 border-green-500 pl-6 relative">
-                <div className="absolute -left-3 w-5 h-5 bg-green-500 rounded-full border-2 border-black"></div>
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
-                  <h4 className="text-green-400 font-semibold text-lg">Full Stack Developer</h4>
-                  <p className="text-green-300 font-medium">StartupXYZ • 2020 - 2022</p>
-                  <p className="text-gray-300 mt-2 leading-relaxed">Built scalable web applications from scratch, implemented CI/CD pipelines, and developed microservices architecture.</p>
-                </div>
-              </div>
-              <div className="border-l-4 border-green-500 pl-6 relative">
-                <div className="absolute -left-3 w-5 h-5 bg-green-500 rounded-full border-2 border-black"></div>
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
-                  <h4 className="text-green-400 font-semibold text-lg">Software Developer Intern</h4>
-                  <p className="text-green-300 font-medium">Innovation Labs • 2019 - 2020</p>
-                  <p className="text-gray-300 mt-2 leading-relaxed">Developed web applications using React and Node.js, collaborated with cross-functional teams, and gained experience in agile development.</p>
-                </div>
+
+            {/* Card 3 */}
+            <div className="bg-gray-900/80 p-5 rounded-lg border border-green-500/50 hover:border-green-400 transition">
+              <h4 className="text-green-400 font-semibold text-lg mb-2">
+                PayGate Micro-Service 💳
+              </h4>
+              <p className="text-gray-300 mb-3">
+                Fault-tolerant payment gateway handling 10k+ TPS with zero-downtime
+                deployments.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">GO</span>
+            
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  Kafka
+                </span>
+                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
+                  Kubernetes
+                </span>
               </div>
             </div>
-          )
-        };
-      case 'contact':
-        return {
-          title: "Get in Touch",
-          content: (
-            <div className="space-y-6">
-              <div className="text-center mb-6">
-                <p className="text-gray-300 text-lg">Let's connect and build something amazing together!</p>
-              </div>
-              <div className="grid grid-cols-1 gap-4">
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30 hover:border-green-400 transition-colors">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
-                      <span className="text-black text-lg font-bold">@</span>
-                    </div>
-                    <div>
-                      <p className="text-green-400 font-semibold text-lg">Email</p>
-                      <p className="text-gray-300">vinaygandra7777@gmail.com</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30 hover:border-green-400 transition-colors">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
-                      <span className="text-black text-sm font-bold">in</span>
-                    </div>
-                    <div>
-                      <p className="text-green-400 font-semibold text-lg">LinkedIn</p>
-                      <p className="text-gray-300">linkedin.com/in/vinaygandra</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30 hover:border-green-400 transition-colors">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
-                      <span className="text-black text-sm font-bold">git</span>
-                    </div>
-                    <div>
-                      <p className="text-green-400 font-semibold text-lg">GitHub</p>
-                      <p className="text-gray-300">github.com/vinaygandra</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          </div>
+        ),
+      }
+      case "skills":
+      return {
+        title: "Technical Skills",
+        content: (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
+              <h4 className="text-green-400 font-semibold mb-3">Languages</h4>
+              <ul className="list-disc list-inside text-gray-300 space-y-1">
+                <li>JavaScript / TypeScript</li>
+                <li>Python</li>
+                <li>Go</li>
+                <li>SQL (PostgreSQL, MySQL)</li>
+              </ul>
             </div>
-          )
-        };
-      case 'education':
-        return {
-          title: "Education & Certifications",
-          content: (
-            <div className="space-y-6">
-              <div className="bg-gray-900/50 p-5 rounded-lg border border-green-500/50">
-                <h4 className="text-green-400 font-semibold text-lg mb-2">Bachelor of Science in Computer Science</h4>
-                <p className="text-green-300 font-medium">University of Technology • 2016 - 2020</p>
-                <p className="text-gray-300 mt-2">Graduated Magna Cum Laude with focus on AI and Machine Learning</p>
-              </div>
-              <div className="bg-gray-900/50 p-5 rounded-lg border border-green-500/50">
-                <h4 className="text-green-400 font-semibold text-lg mb-4">Professional Certifications</h4>
-                <div className="grid grid-cols-1 gap-3">
-                  {[
-                    'AWS Certified Solutions Architect - Professional',
-                    'Google Cloud Professional Developer',
-                    'Microsoft Azure Fundamentals',
-                    'Certified Kubernetes Administrator (CKA)',
-                    'Machine Learning Engineering Certification'
-                  ].map(cert => (
-                    <div key={cert} className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                      <span className="text-gray-300">{cert}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
+              <h4 className="text-green-400 font-semibold mb-3">Frameworks & Tools</h4>
+              <ul className="list-disc list-inside text-gray-300 space-y-1">
+                <li>React & Next.js</li>
+                <li>FastAPI / Django</li>
+                <li>Docker & Kubernetes</li>
+                <li>AWS & GCP</li>
+              </ul>
             </div>
-          )
-        };
+            <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
+              <h4 className="text-green-400 font-semibold mb-3">ML / AI</h4>
+              <ul className="list-disc list-inside text-gray-300 space-y-1">
+                <li>PyTorch & TensorFlow</li>
+                <li>Hugging Face Transformers</li>
+                <li>LangChain & LlamaIndex</li>
+                <li>LLM Fine-Tuning</li>
+              </ul>
+            </div>
+            <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
+              <h4 className="text-green-400 font-semibold mb-3">DevOps / Misc</h4>
+              <ul className="list-disc list-inside text-gray-300 space-y-1">
+                <li>Terraform & Pulumi</li>
+                <li>GitHub Actions / Argo CD</li>
+                <li>Kafka & NATS</li>
+                <li>Grafana & Prometheus</li>
+              </ul>
+            </div>
+          </div>
+        ),
+      };
+
+    /* -------------------------------------------------- */
+    /* 4️⃣  EXPERIENCE                                    */
+    /* -------------------------------------------------- */
+    case "experience":
+      return {
+        title: "Professional Experience",
+        content: (
+          <ul className="space-y-6 text-gray-300">
+            <li className="border-l-2 border-green-500 pl-4">
+              <strong className="text-green-400">Senior Software Engineer</strong> — FintechX (2022 – Present)
+              <br />
+              <span className="text-sm text-gray-400">
+                Led the design & rollout of micro-service payment gateway handling 10k+ TPS.
+                Improved p95 latency by 40 % and mentored 6 junior devs.
+              </span>
+            </li>
+            <li className="border-l-2 border-green-500 pl-4">
+              <strong className="text-green-400">Full-Stack Developer</strong> — StartupY (2020 – 2022)
+              <br />
+              <span className="text-sm text-gray-400">
+                Built React dashboards & FastAPI back-ends for two SaaS products.
+                Introduced CI/CD with GitHub Actions + Argo CD, reducing release time by 60 %.
+              </span>
+            </li>
+            <li className="border-l-2 border-green-500 pl-4">
+              <strong className="text-green-400">Software Engineer Intern</strong> — InnovateCo (2019)
+              <br />
+              <span className="text-sm text-gray-400">
+                Developed internal ETL pipelines and automated infrastructure with Terraform and AWS Lambda.
+              </span>
+            </li>
+          </ul>
+        ),
+      };
+
+    /* -------------------------------------------------- */
+    /* 5️⃣  CONTACT                                       */
+    /* -------------------------------------------------- */
+    case "contact":
+      return {
+        title: "Get In Touch",
+        content: (
+          <div className="space-y-4 text-gray-300">
+            <p>
+              <strong className="text-green-400">Email:</strong> markgatere@email.com
+            </p>
+            <p>
+              <strong className="text-green-400">LinkedIn:</strong> linkedin.com/in/markgatere
+            </p>
+            <p>
+              <strong className="text-green-400">GitHub:</strong> github.com/markgatere
+            </p>
+            <p>
+              <strong className="text-green-400">Twitter / X:</strong> twitter.com/markgatere
+            </p>
+          </div>
+        ),
+      };
+
+    /* -------------------------------------------------- */
+    /* 6️⃣  EDUCATION                                     */
+    /* -------------------------------------------------- */
+    case "education":
+      return {
+        title: "Education",
+        content: (
+          <ul className="list-disc list-inside space-y-2 text-gray-300">
+            <li>
+              <strong className="text-green-400">B.Sc. Computer Science</strong> — University of Nairobi (2016 – 2020)  
+              <br />
+              <span className="text-sm text-gray-400">Graduated Magna Cum Laude</span>
+            </li>
+            <li>
+              <strong className="text-green-400">Deep Learning Specialization</strong> — Coursera (2021)
+            </li>
+            <li>
+              <strong className="text-green-400">Advanced Distributed Systems</strong> — MIT 6.824 (2022)
+            </li>
+          </ul>
+        ),
+      };
+
+    /* -------------------------------------------------- */
+    /* 7️⃣  CERTIFICATIONS                                */
+    /* -------------------------------------------------- */
+    case "certifications":
+      return {
+        title: "Certifications",
+        content: (
+          <ul className="list-disc list-inside space-y-2 text-gray-300">
+            <li>AWS Certified Solutions Architect – Associate</li>
+            <li>Google Professional Cloud Developer</li>
+            <li>Certified Kubernetes Application Developer (CKAD)</li>
+            <li>HashiCorp Certified: Terraform Associate</li>
+            <li>DeepLearning.AI TensorFlow Developer Certificate</li>
+          </ul>
+        ),
+      };
+
+    /* -------------------------------------------------- */
+    /* 8️⃣  LEADERSHIP                                    */
+    /* -------------------------------------------------- */
+    case "leadership":
+      return {
+        title: "Leadership & Community",
+        content: (
+          <div className="space-y-4 text-gray-300">
+            <p>
+              <strong className="text-green-400">Nairobi JS Meetup Lead</strong> — 800+ members, 12 events/year
+            </p>
+            <p>
+              <strong className="text-green-400">Mentor @ SheCodes Kenya</strong> — coached 20+ women transitioning into tech
+            </p>
+            <p>
+              <strong className="text-green-400">Open-source Maintainer</strong> — 10+ repos with 2k+ GitHub stars combined
+            </p>
+          </div>
+        ),
+      };
+
+    /* -------------------------------------------------- */
+    /* 9️⃣  SUDO EASTER EGGS                              */
+    /* -------------------------------------------------- */
+    case "sudo":
+      return {
+        title: "Sudo Easter Eggs",
+        content: (
+          <ul className="list-disc list-inside space-y-2 text-gray-300">
+            <li>sudo make_coffee ☕  →  brewing...</li>
+            <li>sudo deploy_to_prod 🚀  →  0-downtime release!</li>
+            <li>sudo debug_life --fix-all-bugs 🐛  →  life patched</li>
+            <li>sudo rm -rf /stress /anxiety  →  deleted successfully</li>
+            <li>sudo chmod +x dreams.sh && ./dreams.sh  →  dream big</li>
+          </ul>
+        ),
+      };
+
+      /* … add remaining cases (projects, skills, etc.) same as before … */
       default:
-        return {
-          title: "Information",
-          content: (
-            <div className="text-center">
-              <p className="text-gray-300">Command information will appear here</p>
-            </div>
-          )
-        };
+        return { title: 'Info', content: <p className="text-gray-300">Details here</p> };
     }
-  };
+  }, []);
 
+  /* ------------------------------------------------------------------ */
+  /* 7. PROCESS COMMAND                                                 */
+  /* ------------------------------------------------------------------ */
   const processCommand = async (command) => {
-    if (isTyping) return; // Prevent new commands while typing
-    
-    if (command.toLowerCase() === 'clear') {
-        setOutput([]);
-        return;
+    if (isTyping) {
+      setCmdQueue((q) => [...q, command]);
+      return;
     }
 
-    // Check if command should show popup
-    if (['about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership'].includes(command.toLowerCase())) {
+    if (command.toLowerCase() === 'clear') {
+      setOutput([]);
+      return;
+    }
+
+    const popups = ['about', 'projects', 'skills', 'experience', 'contact', 'education','certifications', 'leadership'];
+    if (popups.includes(command.toLowerCase())) {
       setActivePopup(command.toLowerCase());
-      const newOutput = [...output, { text: command, isCommand: true }];
-      setOutput(newOutput);
-      await new Promise(resolve => setTimeout(resolve, 100));
-      setOutput(prev => [...prev, { text: `Opening display for ${command}...`, isTyping: true }]);
+      await typeText([`Opening display for ${command}...`], command);
       return;
     }
 
     let lines;
     switch (command.toLowerCase()) {
       case 'help':
-        lines = [`Available commands: ${navCommands.join(', ')}`];
+        lines = ['Available commands: help, about, projects, skills, experience, contact,certifications,leadership, education, clear'];
         break;
       case 'sudo':
         lines = [
-          "🔐 Access Granted - Advanced Commands:",
-          "",
-          "sudo make_coffee ☕",
-          "sudo deploy_to_production 🚀",
-          "sudo debug_life --fix-all-bugs 🐛",
-          "sudo rm -rf /stress /anxiety /imposter_syndrome",
-          "sudo chmod +x dreams.sh && ./dreams.sh",
-          "",
-          "Remember: With great power comes great responsibility! 🕷️"
+          '🔐 Access Granted - Advanced Commands:',
+          'sudo make_coffee ☕',
+          'sudo deploy_to_production 🚀',
+          'sudo debug_life --fix-all-bugs 🐛',
         ];
         break;
       default:
         lines = [`command not found: ${command}`];
-        break;
     }
-    
     await typeText(lines, command);
   };
 
+  /* ------------------------------------------------------------------ */
+  /* 8. KEY HANDLERS                                                    */
+  /* ------------------------------------------------------------------ */
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && input.trim() && !isTyping) {
-      processCommand(input.trim());
+    if (e.key === 'Enter' && input.trim()) {
+      if (isTyping) setCmdQueue((q) => [...q, input.trim()]);
+      else processCommand(input.trim());
       setInput('');
     }
     if (e.key === 'Escape' && activePopup) {
       setActivePopup(null);
     }
+    if (e.ctrlKey && e.key === 'l') {
+      e.preventDefault();
+      setSkipTyping((s) => !s);
+    }
   };
 
-  const closePopup = () => {
-    setActivePopup(null);
-  };
+  /* ------------------------------------------------------------------ */
+  /* 9. MOBILE SWIPE-TO-CLOSE                                           */
+  /* ------------------------------------------------------------------ */
+  useEffect(() => {
+    let startY = 0;
+    const onTouchStart = (e) => (startY = e.touches[0].clientY);
+    const onTouchEnd = (e) => {
+      const endY = e.changedTouches[0].clientY;
+      if (startY - endY < -80) setActivePopup(null); // swipe down
+    };
+    if (activePopup) {
+      window.addEventListener('touchstart', onTouchStart);
+      window.addEventListener('touchend', onTouchEnd);
+    }
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [activePopup]);
 
-  // Create a placeholder image with initials
-  const ProfileImage = () => (
-    <div className="w-48 h-64 bg-gradient-to-br from-gray-900 to-black rounded-lg border-2 border-green-500 flex flex-col items-center justify-center shadow-2xl">
-      <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mb-4 border-2 border-green-400">
-        <span className="text-black text-2xl font-bold">VG</span>
-      </div>
-      <div className="text-white text-sm font-mono text-center px-4">
-        <div className="mb-2 text-green-400 font-semibold">Vinay Gandra</div>
-        <div className="text-gray-300">Software & AI Engineer</div>
-        <div className="text-green-400 text-xs mt-2">ID: DEV-2024-001</div>
-      </div>
-    </div>
-  );
+  /* ------------------------------------------------------------------ */
+  /* 10. 3-D ID CARD                                                    */
+  /* ------------------------------------------------------------------ */
+  const InteractiveIDCard = () => {
+    const [rotate, setRotate] = useState({ x: 0, y: 0 });
+    const onMouseMove = (e) => {
+      const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+      const x = (e.clientX - left - width / 2) / 20;
+      const y = -(e.clientY - top - height / 2) / 20;
+      setRotate({ x, y });
+    };
+    const onMouseLeave = () => setRotate({ x: 0, y: 0 });
 
-  // Green-themed Popup Component
-  const GreenPopup = ({ command, onClose }) => {
-    const popupData = getPopupContent(command);
-    
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-        <div 
-          className="relative bg-black/95 border-2 border-green-500 rounded-lg p-6 max-w-4xl max-h-[85vh] overflow-y-auto shadow-2xl"
-          style={{
-            boxShadow: '0 0 30px rgba(0, 255, 0, 0.3)',
-            backdropFilter: 'blur(10px)',
-          }}
-        >
-          {/* Green accent lines */}
-          <div className="absolute inset-0 opacity-20 pointer-events-none">
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500 to-transparent"></div>
-            <div className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-green-500 to-transparent"></div>
-            <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-green-500 to-transparent"></div>
-          </div>
-          
-          {/* Close button */}
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 bg-green-600 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors duration-200"
-          >
-            <span className="text-black text-lg font-bold">×</span>
-          </button>
-          
-          {/* Header */}
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold text-green-400 mb-3">
-              {popupData.title}
-            </h2>
-            <div className="w-20 h-1 bg-green-500 mx-auto rounded-full"></div>
-          </div>
-          
-          {/* Content */}
-          <div className="relative z-10">
-            {popupData.content}
-          </div>
-          
-          {/* Footer */}
-          <div className="text-center mt-6 pt-4 border-t border-green-500/30">
-            <p className="text-xs text-gray-400">Press ESC to close display</p>
-          </div>
-        </div>
-      </div>
+      <div
+        className="w-60 h-80 rounded-xl bg-gradient-to-br from-gray-900 to-black border-2 border-green-500 shadow-2xl"
+        style={{
+          transform: `perspective(1000px) rotateX(${rotate.y}deg) rotateY(${rotate.x}deg)`,
+          transition: 'transform 0.1s ease-out',
+        }}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+      >
+        <div
+  className="w-60 h-80 rounded-xl bg-cover bg-center border-2 border-green-500 shadow-2xl cursor-grab"
+  style={{
+    backgroundImage: "url(src/assets/image1.jpg)", // ← replace with your own full-card URL
+    transform: `perspective(1000px) rotateX(0deg) rotateY(0deg)`,
+    transition: 'transform .1s ease-out',
+  }}
+>
+  {/* Overlay text (optional) */}
+  <div className="flex flex-col justify-end h-full p-4 bg-black/60 rounded-xl">
+    <div className="text-white text-center">
+      <div className="text-lg font-bold text-green-400">Vinay Gandra</div>
+      <div className="text-sm text-gray-300">Software & AI Engineer</div>
+    </div>
+  </div>
+</div>
+</div>
     );
   };
 
+  /* ------------------------------------------------------------------ */
+  /* 11. RENDER                                                         */
+  /* ------------------------------------------------------------------ */
   return (
     <div className="bg-black text-white font-mono h-screen flex flex-col relative overflow-hidden">
       {/* Header */}
-      <div className='p-4 border-b border-green-500'>
-        <h1 className="text-3xl text-green-400 font-bold">VINAY GANDRA</h1>
-        <p className="text-sm text-gray-400">Software & AI Engineer</p>
+      <div className="p-2 md:p-4 border-b border-green-500">
+        <h1 className="text-2xl md:text-3xl text-green-400 font-bold">VINAY GANDRA</h1>
+        <p className="text-xs md:text-sm text-gray-400">Software & AI Engineer</p>
       </div>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Left Panel */}
-        <aside className="w-1/3 flex justify-center items-start pt-16 px-6">
-          <div className="text-center">
-            <ProfileImage />
-            <p className="text-green-500 text-sm mt-4">[Interactive Profile Card]</p>
-          </div>
+        {/* Left Panel / 3-D Card */}
+        <aside className="hidden md:flex w-1/3 justify-center items-start pt-16 px-4">
+          <InteractiveIDCard />
         </aside>
 
         {/* Vertical Separator */}
-        <div className="w-px bg-green-500"></div>
+        <div className="hidden md:block w-px bg-green-500"></div>
 
-        {/* Right Panel */}
-        <main className="w-2/3 flex flex-col pl-6 pr-4">
-          {/* Top Navigation */}
-          <nav className="flex flex-wrap items-center gap-x-2 text-sm py-4 border-b border-green-500 mb-4">
-            {navCommands.map((cmd, index) => (
+        {/* Right Panel / Terminal */}
+        <main className="w-full md:w-2/3 flex flex-col pl-2 pr-2 md:pl-6 md:pr-4">
+          {/* Nav */}
+          <nav className="flex flex-wrap items-center gap-x-2 text-sm py-4 border-b border-green-800 mb-4">
+             {navCommands.map((cmd, index) => (
               <React.Fragment key={cmd}>
                 <button 
                   onClick={() => processCommand(cmd)}
-                  className="text-green-400 hover:text-green-300 hover:bg-green-900/30 transition-colors duration-200 px-2 py-1 rounded"
+                  className="text-green-400 hover:text-white transition-colors duration-200 px-1 py-1 rounded hover:bg-gray-800"
                   disabled={isTyping}
                 >
                   {cmd}
                 </button>
-                {index < navCommands.length - 1 && <span className="text-green-600">|</span>}
+                {index < navCommands.length - 1 && <span className="text-gray-600">|</span>}
               </React.Fragment>
             ))}
           </nav>
-          
-          {/* Terminal Output */}
+
+          {/* Output */}
           <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-gray-800">
-            {output.map((line, index) => (
-              <div key={index} className="mb-1">
+            {output.map((line, i) => (
+              <div key={i} className="mb-1">
                 {line.isCommand ? (
                   <div className="flex">
                     <span className="text-green-400">vinay@portfolio:~$</span>
                     <span className="ml-2 text-white">{line.text}</span>
                   </div>
                 ) : (
-                  <div className="text-gray-300 whitespace-pre-line ml-4 leading-relaxed">
-                    {line.text}
-                  </div>
+                  <div className="text-gray-300 whitespace-pre-line ml-2 md:ml-4">{line.text}</div>
                 )}
               </div>
             ))}
-
             <div ref={terminalEndRef} />
-            <div className="flex items-center py-4">
-              <span className="text-green-400">vinay@portfolio:~$</span>
+            <div className="flex items-center py-2">
+              <span className="text-green-400 text-sm">vinay@portfolio:~$</span>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="bg-transparent text-white outline-none flex-1 ml-2 caret-green-400"
-                autoFocus
-                placeholder={isTyping ? "Processing..." : "Type a command..."}
+                className="bg-transparent text-white outline-none flex-1 ml-2 caret-green-400 text-sm"
+                placeholder={isTyping ? 'Processing...' : 'Type command…'}
                 disabled={isTyping}
               />
             </div>
           </div>
         </main>
       </div>
+      
+      
 
-      {/* Footer Elements */}
-      <footer className="absolute bottom-4 right-4 text-green-400 text-xs font-mono">
+      {/* Footer */}
+      <footer className="absolute bottom-2 right-2 text-green-400 text-xs">
         {currentTime}
+        {skipTyping && <span className="ml-2 bg-green-600 text-black px-1 rounded">FAST MODE</span>}
       </footer>
 
-      {/* Green Popup */}
+      {/* Popup */}
       {activePopup && (
-        <GreenPopup 
-          command={activePopup} 
-          onClose={closePopup}
-        />
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center backdrop-blur-sm"
+          onClick={() => setActivePopup(null)}
+        >
+          <div
+            className="relative bg-black/95 border-2 border-green-500 rounded-lg p-4 md:p-6 w-11/12 max-w-3xl max-h-[80vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setActivePopup(null)}
+              className="absolute top-2 right-2 md:top-4 md:right-4 w-8 h-8 bg-green-600 hover:bg-green-500 rounded-full text-black font-bold"
+            >
+              ×
+            </button>
+            <h2 className="text-2xl font-bold text-green-400 mb-4 text-center">
+              {getPopupContent(activePopup).title}
+            </h2>
+            <div>{getPopupContent(activePopup).content}</div>
+          </div>
+        </div>
       )}
     </div>
   );
