@@ -1,0 +1,8 @@
+/* Glitch.scss */
+.glitch {
+  animation: glitch .3s infinite alternate;
+  @keyframes glitch {
+    0%   { text-shadow: -2px 0 0 #0f0, 2px 0 0 #f00; }
+    100% { text-shadow: 2px 0 0 #0f0, -2px 0 0 #f00; }
+  }
+}

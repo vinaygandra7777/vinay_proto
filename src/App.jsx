@@ -1,11 +1,13 @@
 
 // TerminalPortfolio.jsx
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import BootSequence from './BootSequence';
 
 const TerminalPortfolio = () => {
   /* ------------------------------------------------------------------ */
   /* 1. STATE                                                           */
   /* ------------------------------------------------------------------ */
+  const [bootDone, setBootDone] = useState(false);
   const [input, setInput] = useState('');
   const [output, setOutput] = useState([
     { text: 'welcome', isCommand: true },
@@ -18,11 +20,12 @@ const TerminalPortfolio = () => {
   const [activePopup, setActivePopup] = useState(null);
   const [cmdQueue, setCmdQueue] = useState([]);
   const [skipTyping, setSkipTyping] = useState(false);
+  
 
   const terminalEndRef = useRef(null);
   const navCommands = ['help', 'about', 'projects', 'skills', 'experience', 'contact', 'education', 'certifications', 'leadership', 'sudo', 'clear'];
 
-
+  
 
   /* ------------------------------------------------------------------ */
   /* 2. TIME                                                            */
@@ -117,23 +120,18 @@ const TerminalPortfolio = () => {
             {/* Card 1 */}
             <div className="bg-gray-900/80 p-5 rounded-lg border border-green-500/50 hover:border-green-400 transition">
               <h4 className="text-green-400 font-semibold text-lg mb-2">
-                EcoTrack 🌱
+                Online Food Ordering Platform
               </h4>
               <p className="text-gray-300 mb-3">
-                AI-driven carbon-footprint tracker with real-time analytics dashboards.
+                -Built with HTML, CSS, JavaScript, and Firebase Authentication.
+                -Features user login, cart management, and order summary
               </p>
               <div className="flex flex-wrap gap-2">
                 <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
-                  Next.js
+                  JavaScript
                 </span>
                 <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
-                  FastAPI
-                </span>
-                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
-                  PostgreSQL
-                </span>
-                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
-                  Docker
+                  Firebase
                 </span>
               </div>
             </div>
@@ -141,10 +139,10 @@ const TerminalPortfolio = () => {
             {/* Card 2 */}
             <div className="bg-gray-900/80 p-5 rounded-lg border border-green-500/50 hover:border-green-400 transition">
               <h4 className="text-green-400 font-semibold text-lg mb-2">
-                Swahili-LLM 🤖
+                Geni Ai 🤖
               </h4>
               <p className="text-gray-300 mb-3">
-                Open-source large-language model fine-tuned for Swahili NLP tasks.
+                
               </p>
               <div className="flex flex-wrap gap-2">
                 <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
@@ -190,9 +188,8 @@ const TerminalPortfolio = () => {
             <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
               <h4 className="text-green-400 font-semibold mb-3">Languages</h4>
               <ul className="list-disc list-inside text-gray-300 space-y-1">
-                <li>JavaScript / TypeScript</li>
+                <li>JavaScript</li>
                 <li>Python</li>
-                <li>Go</li>
                 <li>SQL (PostgreSQL, MySQL)</li>
               </ul>
             </div>
@@ -200,29 +197,28 @@ const TerminalPortfolio = () => {
               <h4 className="text-green-400 font-semibold mb-3">Frameworks & Tools</h4>
               <ul className="list-disc list-inside text-gray-300 space-y-1">
                 <li>React & Next.js</li>
-                <li>FastAPI / Django</li>
-                <li>Docker & Kubernetes</li>
+                <li>FastAPI</li>
+                <li>Docker </li>
                 <li>AWS & GCP</li>
               </ul>
             </div>
             <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
               <h4 className="text-green-400 font-semibold mb-3">ML / AI</h4>
               <ul className="list-disc list-inside text-gray-300 space-y-1">
-                <li>PyTorch & TensorFlow</li>
-                <li>Hugging Face Transformers</li>
+                <li>PyTorch</li>
+                <li>RAG & Dspy</li>
                 <li>LangChain & LlamaIndex</li>
-                <li>LLM Fine-Tuning</li>
               </ul>
             </div>
             <div className="bg-gray-900/50 p-4 rounded-lg border border-green-500/30">
-              <h4 className="text-green-400 font-semibold mb-3">DevOps / Misc</h4>
+              <h4 className="text-green-400 font-semibold mb-3">DevOps & Cloud</h4>
               <ul className="list-disc list-inside text-gray-300 space-y-1">
-                <li>Terraform & Pulumi</li>
-                <li>GitHub Actions / Argo CD</li>
-                <li>Kafka & NATS</li>
-                <li>Grafana & Prometheus</li>
+                <li>Docker</li>
+                <li>AWS (S3, EC2, Lambda)</li>
+                <li>CI/CD (GitHub Actions)</li>
               </ul>
-            </div>
+              </div>
+            
           </div>
         ),
       };
@@ -236,26 +232,10 @@ const TerminalPortfolio = () => {
         content: (
           <ul className="space-y-6 text-gray-300">
             <li className="border-l-2 border-green-500 pl-4">
-              <strong className="text-green-400">Senior Software Engineer</strong> — FintechX (2022 – Present)
+              <strong className="text-green-400">Software Engineer</strong> — Zingaro.ai(present)
               <br />
               <span className="text-sm text-gray-400">
-                Led the design & rollout of micro-service payment gateway handling 10k+ TPS.
-                Improved p95 latency by 40 % and mentored 6 junior devs.
-              </span>
-            </li>
-            <li className="border-l-2 border-green-500 pl-4">
-              <strong className="text-green-400">Full-Stack Developer</strong> — StartupY (2020 – 2022)
-              <br />
-              <span className="text-sm text-gray-400">
-                Built React dashboards & FastAPI back-ends for two SaaS products.
-                Introduced CI/CD with GitHub Actions + Argo CD, reducing release time by 60 %.
-              </span>
-            </li>
-            <li className="border-l-2 border-green-500 pl-4">
-              <strong className="text-green-400">Software Engineer Intern</strong> — InnovateCo (2019)
-              <br />
-              <span className="text-sm text-gray-400">
-                Developed internal ETL pipelines and automated infrastructure with Terraform and AWS Lambda.
+                Building Voice agents.
               </span>
             </li>
           </ul>
@@ -271,16 +251,13 @@ const TerminalPortfolio = () => {
         content: (
           <div className="space-y-4 text-gray-300">
             <p>
-              <strong className="text-green-400">Email:</strong> markgatere@email.com
+              <strong className="text-green-400">Email:</strong> vinaygandra7777@gmail.com
             </p>
             <p>
-              <strong className="text-green-400">LinkedIn:</strong> linkedin.com/in/markgatere
+              <strong className="text-green-400">LinkedIn:</strong> https://www.linkedin.com/in/gandra-vinay-297376266/
             </p>
             <p>
-              <strong className="text-green-400">GitHub:</strong> github.com/markgatere
-            </p>
-            <p>
-              <strong className="text-green-400">Twitter / X:</strong> twitter.com/markgatere
+              <strong className="text-green-400">GitHub:</strong> https://github.com/vinaygandra7777
             </p>
           </div>
         ),
@@ -295,15 +272,9 @@ const TerminalPortfolio = () => {
         content: (
           <ul className="list-disc list-inside space-y-2 text-gray-300">
             <li>
-              <strong className="text-green-400">B.Sc. Computer Science</strong> — University of Nairobi (2016 – 2020)  
+              <strong className="text-green-400">Electrical and Communication Engineering</strong> — Sreenidhi institute of science and Technology  
               <br />
-              <span className="text-sm text-gray-400">Graduated Magna Cum Laude</span>
-            </li>
-            <li>
-              <strong className="text-green-400">Deep Learning Specialization</strong> — Coursera (2021)
-            </li>
-            <li>
-              <strong className="text-green-400">Advanced Distributed Systems</strong> — MIT 6.824 (2022)
+              <span className="text-sm text-gray-400">8.59</span>
             </li>
           </ul>
         ),
@@ -336,12 +307,6 @@ const TerminalPortfolio = () => {
           <div className="space-y-4 text-gray-300">
             <p>
               <strong className="text-green-400">Nairobi JS Meetup Lead</strong> — 800+ members, 12 events/year
-            </p>
-            <p>
-              <strong className="text-green-400">Mentor @ SheCodes Kenya</strong> — coached 20+ women transitioning into tech
-            </p>
-            <p>
-              <strong className="text-green-400">Open-source Maintainer</strong> — 10+ repos with 2k+ GitHub stars combined
             </p>
           </div>
         ),
@@ -490,11 +455,14 @@ const TerminalPortfolio = () => {
 </div>
     );
   };
-
+  if (!bootDone) {
+    return <BootSequence onDone={() => setBootDone(true)} />;
+  }
   /* ------------------------------------------------------------------ */
   /* 11. RENDER                                                         */
   /* ------------------------------------------------------------------ */
   return (
+    
     <div className="bg-black text-white font-mono h-screen flex flex-col relative overflow-hidden">
       {/* Header */}
       <div className="p-2 md:p-4 border-b border-green-500">
