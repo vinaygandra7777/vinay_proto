@@ -142,18 +142,17 @@ const TerminalPortfolio = () => {
                 Geni Ai 🤖
               </h4>
               <p className="text-gray-300 mb-3">
+                An interactive, futuristic chat platform designed to enhance user engagement and streamline communication. With a sleek and responsive UI, Gemini AI Chat offers features such as light and dark mode toggles, conversation history storage, and smooth message animations. Built using modern web technologies, it incorporates AI-powered responses to deliver real-time assistance, providing users with an intuitive and cutting-edge experience.
                 
               </p>
               <div className="flex flex-wrap gap-2">
                 <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
-                  PyTorch
+                  Javascript
                 </span>
                 <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
-                  Hugging Face
+                  Gemini AI
                 </span>
-                <span className="bg-green-900/50 text-green-300 px-2 py-1 rounded text-xs">
-                  AWS SageMaker
-                </span>
+              
               </div>
             </div>
 
